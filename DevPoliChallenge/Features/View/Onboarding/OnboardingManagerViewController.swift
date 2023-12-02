@@ -74,9 +74,7 @@ class OnboardingManagerViewController: UIPageViewController {
         
         addSubViews()
         
-        nextButtonContraints()
-        buttonSkipContraints()
-        startButtonConstraints()
+        setupConstraints()
         setViewControllers([orderedViewControllers[page]], direction: .forward, animated: true, completion: nil)
     }
     
@@ -87,7 +85,6 @@ class OnboardingManagerViewController: UIPageViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("salvador user defauults")
         UserDefaults.setFirstAccess(value: true)
     }
     
@@ -116,30 +113,25 @@ class OnboardingManagerViewController: UIPageViewController {
     
     //Constraints
         
-    private func buttonSkipContraints(){
-       NSLayoutConstraint.activate([
+    private func setupConstraints(){
+        
+        NSLayoutConstraint.activate([
+            
         buttonSkip.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-        buttonSkip.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23)
-       ])
-    }
-
-    
-    private func nextButtonContraints(){
-        NSLayoutConstraint.activate([
-            nextButtonAction.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26),
-            nextButtonAction.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
-            nextButtonAction.widthAnchor.constraint(equalToConstant: 44),
-            nextButtonAction.heightAnchor.constraint(equalToConstant: 44)
-        ])
-    }
-    
-    private func startButtonConstraints(){
-        NSLayoutConstraint.activate([
-            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26),
-            startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
-            startButton.widthAnchor.constraint(equalToConstant: 167),
-            startButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
+        buttonSkip.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
+                                       
+        nextButtonAction.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26),
+        nextButtonAction.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+        nextButtonAction.widthAnchor.constraint(equalToConstant: 44),
+        nextButtonAction.heightAnchor.constraint(equalToConstant: 44),
+        
+        startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26),
+        startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+        startButton.widthAnchor.constraint(equalToConstant: 167),
+        startButton.heightAnchor.constraint(equalToConstant: 44),
+        
+     ])
+      
     }
     
     func elementsWillHidden(_ page: Int){

@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navView = UINavigationController(rootViewController: OnboardingManagerViewController())
         
 
-        if UserDefaults.isFirstAccess() == true {
+        if UserDefaults.isFirstAccess() == false {
             window.rootViewController = WelcomeViewController()
             window.makeKeyAndVisible()
             self.window = window
