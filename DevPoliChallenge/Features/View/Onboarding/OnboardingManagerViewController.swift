@@ -72,7 +72,7 @@ class OnboardingManagerViewController: UIPageViewController {
         dataSource = self
         delegate = self
         
-        addSubViews()
+        setupView()
         
         setupConstraints()
         setViewControllers([orderedViewControllers[page]], direction: .forward, animated: true, completion: nil)
@@ -90,12 +90,10 @@ class OnboardingManagerViewController: UIPageViewController {
     
 
     
-    func addSubViews(){
-
+    private func setupView(){
         view.addSubview(nextButtonAction)
         view.addSubview(startButton)
         view.addSubview(buttonSkip)
-        
     }
     
     @objc func goToWelcomeView(_ sender:UIButton){
@@ -111,7 +109,6 @@ class OnboardingManagerViewController: UIPageViewController {
         setViewControllers([nextPage], direction: .forward, animated: true, completion: nil)
     }
     
-    //Constraints
         
     private func setupConstraints(){
         
@@ -134,7 +131,7 @@ class OnboardingManagerViewController: UIPageViewController {
       
     }
     
-    func elementsWillHidden(_ page: Int){
+    private func elementsWillHidden(_ page: Int){
         if page == 1 {
             buttonSkip.setTitleColor(DesignSystem.Colors.primary, for: .normal)
             startButton.isHidden = true

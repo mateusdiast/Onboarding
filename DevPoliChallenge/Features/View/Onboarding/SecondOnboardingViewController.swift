@@ -8,17 +8,22 @@
 
 
 import UIKit
-
+ 
 class SecondOnboardingViewController: UIViewController {
 
     private lazy var subViewButton: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(subStackView)
         return view
     }()
     
     private lazy var subStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [
+            diselectedButton1,
+            selectedButton,
+            diselectedButton2
+        ])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
@@ -27,7 +32,7 @@ class SecondOnboardingViewController: UIViewController {
     }()
     
     
-    private lazy var seletedButton: UIButton = {
+    private lazy var selectedButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = DesignSystem.Colors.accent
         button.layer.cornerRadius = 6
@@ -57,6 +62,9 @@ class SecondOnboardingViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = DesignSystem.Colors.backgroundSubView
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(labelTitle)
+        view.addSubview(labelContent)
+        view.addSubview(subViewButton)
         return view
     }()
     
@@ -92,37 +100,26 @@ class SecondOnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = DesignSystem.Colors.background
-        navigationItem.hidesBackButton = true
-        addSubViews()
+        setupView()
         setupConstraints()
     }
 
     
-    private func addSubViews() {
-        
+    private func setupView() {
         view.addSubview(subView)
-        view.addSubview(imageView)        
-        subView.addSubview(labelTitle)
-        subView.addSubview(labelContent)
-        subView.addSubview(subViewButton)
-        
-        subViewButton.addSubview(subStackView)
- 
-
-        subStackView.addArrangedSubview(diselectedButton1)
-        subStackView.addArrangedSubview(seletedButton)
-        subStackView.addArrangedSubview(diselectedButton2)
-  
+        view.addSubview(imageView)
     }
     
-    // CONSTRAINTS
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 117),
             imageView.bottomAnchor.constraint(equalTo: subView.topAnchor, constant: -64),
+            imageView.leadingAnchor.constraint(lessThanOrEqualTo: view.leadingAnchor, constant: 71),
+            imageView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant:  -71),
             imageView.widthAnchor.constraint(lessThanOrEqualToConstant:  206),
+            imageView.heightAnchor.constraint(lessThanOrEqualToConstant: 206),
             
             subView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             subView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
@@ -148,7 +145,7 @@ class SecondOnboardingViewController: UIViewController {
             subStackView.heightAnchor.constraint(equalToConstant: 12),
             subStackView.centerYAnchor.constraint(equalTo: subViewButton.centerYAnchor),
             
-            seletedButton.widthAnchor.constraint(equalToConstant: 37),
+            selectedButton.widthAnchor.constraint(equalToConstant: 37),
             
             diselectedButton1.widthAnchor.constraint(equalToConstant: 12),
             diselectedButton2.widthAnchor.constraint(equalToConstant: 12)

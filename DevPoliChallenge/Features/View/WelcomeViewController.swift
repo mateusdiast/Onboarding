@@ -33,7 +33,10 @@ class WelcomeViewController: UIViewController {
     }()
     
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [
+            createAccountButton,
+            signInButton
+        ])
         stackView.axis = .vertical
         stackView.spacing = 12
         stackView.distribution = .equalSpacing
@@ -68,19 +71,15 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor =  DesignSystem.Colors.background
         navigationController?.isNavigationBarHidden = true
-        addSubView()
+        setupView()
         setupConstraints()
     }
     
-    private func addSubView(){
+    private func setupView(){
         view.addSubview(labelTitle)
         view.addSubview(labelContent)
         view.addSubview(stackView)
-        stackView.addArrangedSubview(createAccountButton)
-        stackView.addArrangedSubview(signInButton)
     }
-    
-    // CONSTRAINTS
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([

@@ -14,11 +14,16 @@ class ThirdOnboardingViewController: UIViewController {
     private lazy var subViewButton: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(subStackView)
         return view
     }()
     
     private lazy var subStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [
+            diselectedButton1,
+            diselectedButton2,
+            selectedButton
+        ])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
@@ -30,12 +35,13 @@ class ThirdOnboardingViewController: UIViewController {
     private lazy var containerImage: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
         return view
     }()
     
 
     
-    private lazy var seletedButton: UIButton = {
+    private lazy var selectedButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = DesignSystem.Colors.accent
         button.layer.cornerRadius = 6
@@ -65,6 +71,9 @@ class ThirdOnboardingViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = DesignSystem.Colors.backgroundSubView
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(labelTitle)
+        view.addSubview(labelContent)
+        view.addSubview(subViewButton)
         return view
     }()
     
@@ -99,7 +108,7 @@ class ThirdOnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = DesignSystem.Colors.accent
-        addSubViews()
+        setupView()
         setupConstraints()
     }
     
@@ -109,30 +118,15 @@ class ThirdOnboardingViewController: UIViewController {
     }
 
     
-    private func addSubViews() {
-        
+    private func setupView() {
         view.addSubview(subView)
         view.addSubview(containerImage)
-      
-        containerImage.addSubview(imageView)
-    
-        subView.addSubview(labelTitle)
-        subView.addSubview(labelContent)
-        subView.addSubview(subViewButton)
-        
-        subViewButton.addSubview(subStackView)
-
-        subStackView.addArrangedSubview(diselectedButton1)
-        subStackView.addArrangedSubview(diselectedButton2)
-        subStackView.addArrangedSubview(seletedButton)
-        
-        
     }
     
-    // CONSTRAINTS
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
+            
             containerImage.topAnchor.constraint(equalTo: view.topAnchor),
             containerImage.bottomAnchor.constraint(equalTo: subView.topAnchor),
             containerImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -141,11 +135,10 @@ class ThirdOnboardingViewController: UIViewController {
             imageView.centerXAnchor.constraint(equalTo: containerImage.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: containerImage.centerYAnchor),
             imageView.widthAnchor.constraint(equalTo: containerImage.widthAnchor, multiplier: 1.0),
-            
+
             subView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             subView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             subView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            subView.topAnchor.constraint(equalTo: containerImage.bottomAnchor),
             subView.heightAnchor.constraint(equalToConstant: 318),
             
             labelTitle.topAnchor.constraint(equalTo: subView.topAnchor, constant: 22),
@@ -167,7 +160,7 @@ class ThirdOnboardingViewController: UIViewController {
             subStackView.heightAnchor.constraint(equalToConstant: 12),
             subStackView.centerYAnchor.constraint(equalTo: subViewButton.centerYAnchor),
             
-            seletedButton.widthAnchor.constraint(equalToConstant: 37),
+            selectedButton.widthAnchor.constraint(equalToConstant: 37),
             
             diselectedButton1.widthAnchor.constraint(equalToConstant: 12),
             diselectedButton2.widthAnchor.constraint(equalToConstant: 12)

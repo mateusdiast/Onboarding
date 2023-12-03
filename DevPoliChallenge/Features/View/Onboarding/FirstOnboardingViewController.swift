@@ -13,11 +13,16 @@ class FirstOnboardingViewController: UIViewController {
     private lazy var subViewButton: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(subStackView)
         return view
     }()
     
     private lazy var subStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [
+            selectedButton,
+            diselectedButton1,
+            diselectedButton2
+        ])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
@@ -25,7 +30,7 @@ class FirstOnboardingViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var seletedButton: UIButton = {
+    private lazy var selectedButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = DesignSystem.Colors.accent
         button.layer.cornerRadius = 6
@@ -55,6 +60,9 @@ class FirstOnboardingViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = DesignSystem.Colors.backgroundSubView
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(labelTitle)
+        view.addSubview(labelContent)
+        view.addSubview(subViewButton)
         return view
     }()
     
@@ -88,43 +96,29 @@ class FirstOnboardingViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        addSubViews()
+        setupView()
         super.viewDidLoad()
         view.backgroundColor = DesignSystem.Colors.primary
-        addSubViews()
         setupConstraints()
 
     }
 
     
-    private func addSubViews() {
-        
-        view.addSubview(subView)
-        view.addSubview(imageView)
-    
-        subView.addSubview(labelTitle)
-        subView.addSubview(labelContent)
-        subView.addSubview(subViewButton)
-        
-        subViewButton.addSubview(subStackView)
-
-        subStackView.addArrangedSubview(seletedButton)
-        subStackView.addArrangedSubview(diselectedButton1)
-        subStackView.addArrangedSubview(diselectedButton2)
-        
+    private func setupView() {
+        self.view.addSubview(subView)
+        self.view.addSubview(imageView)
         
     }
-    
-    // CONSTRAINTS
-    
+
     private func setupConstraints(){
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 117),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 117),
             imageView.bottomAnchor.constraint(equalTo: subView.topAnchor, constant: -76),
-            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 71),
-            imageView.trailingAnchor.constraint(greaterThanOrEqualTo: view.trailingAnchor, constant: 71),
+            imageView.leadingAnchor.constraint(lessThanOrEqualTo: view.leadingAnchor, constant: 71),
+            imageView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -71),
             imageView.widthAnchor.constraint(lessThanOrEqualToConstant:  248),
+            imageView.heightAnchor.constraint(lessThanOrEqualToConstant: 248),
             
             subView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             subView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
@@ -150,7 +144,7 @@ class FirstOnboardingViewController: UIViewController {
             subStackView.heightAnchor.constraint(equalToConstant: 12),
             subStackView.centerYAnchor.constraint(equalTo: subViewButton.centerYAnchor),
             
-            seletedButton.widthAnchor.constraint(equalToConstant: 37),
+            selectedButton.widthAnchor.constraint(equalToConstant: 37),
             
             diselectedButton1.widthAnchor.constraint(equalToConstant: 12),
             diselectedButton2.widthAnchor.constraint(equalToConstant: 12)
